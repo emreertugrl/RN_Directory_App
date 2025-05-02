@@ -20,16 +20,22 @@ import {deleteGroup, updateGroup} from '../../service/dataBase';
 import {useNavigation} from '@react-navigation/native';
 import {CONTACTLIST} from '../../utils/routes';
 import {getPersons} from '../../service/personDataBase';
+import {useSelector} from 'react-redux';
 
 const GroupItem = ({item, showEdit, onUpdate, closeShowEdit}) => {
   const [trash, setTrash] = useState(false);
   const [editText, setEditText] = useState(item.title);
   const [persons, setPersons] = useState(0);
+  const {contacts} = useSelector(state => state.contacts);
+  console.log(contacts);
 
   const navigation = useNavigation();
 
   useEffect(() => {
-    getPersons(item.id).then(res => setPersons(res));
+    getPersons(item.id).then(res => {
+      setPersons(res);
+      console.log(res);
+    });
   }, []);
 
   return (

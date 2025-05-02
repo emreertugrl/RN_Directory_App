@@ -12,12 +12,12 @@ const AddContact = ({route}) => {
     <View style={defaultScreenStyle.container}>
       <Formik
         initialValues={{
-          name: 'Emre',
-          surname: 'Ertuğrul',
-          phone: '55555555555',
-          company: 'Meehaba',
-          email: 'Test@gmail.com',
-          address: 'istanbul',
+          name: 'John',
+          surname: 'Bravo',
+          phone: '+1 770 07 07',
+          company: 'Cartoon Network',
+          email: 'test@gmail.com',
+          address: 'Newyork/USA',
           group_id: group_id,
         }}
         onSubmit={async values => {

@@ -3,19 +3,22 @@ import dScreen from '../../styles/defaultScreenStyle';
 import {Button} from '@ui-kitten/components';
 import {Add, ArrowLeft2, UserCirlceAdd} from 'iconsax-react-nativejs';
 import Colors from '../../theme/colors';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {getPersons} from '../../service/personDataBase';
 import ContactItem from '../../components/contacts/contactItem';
 import {ADDCONTACT} from '../../utils/routes';
+import {useDispatch, useSelector} from 'react-redux';
+import {setContacts} from '../../store/slice/contactsSlice';
 
 const ContactList = ({route, navigation}) => {
   const {item} = route?.params || {};
   const backScreen = route?.name;
-  const [contactList, setContactList] = useState([]);
+  const {contacts} = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getPersons(item.id)
-      .then(res => setContactList(res))
+      .then(res => dispatch(setContacts(res)))
       .catch(err => console.log(err));
   }, []);
 
@@ -41,8 +44,8 @@ const ContactList = ({route, navigation}) => {
         {item.title}
       </Text>
       <FlatList
-        contentContainerStyle={{flex: contactList.length < 1 && 1}}
-        data={contactList}
+        contentContainerStyle={{flex: contacts.length < 1 && 1}}
+        data={contacts}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => <ContactItem item={item} />}
         ListEmptyComponent={

@@ -6,22 +6,27 @@ import {createTable, getGroups} from '../../service/dataBase';
 import GroupItem from '../../components/groups/groupItem';
 import AddItemInput from '../../components/groups/addItemInput';
 import {createPersonTable} from '../../service/personDataBase';
+import {useDispatch, useSelector} from 'react-redux';
+import {setGroups} from '../../store/slice/groupsSlice';
+import {setContacts} from '../../store/slice/contactsSlice';
 
 const Groups = () => {
-  const [groupList, setGroupList] = useState([]);
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
-
+  const {groups} = useSelector(state => state.groups);
+  const dispatch = useDispatch();
   const refreshGroups = () => {
     getGroups()
-      .then(groups => setGroupList(groups))
+      .then(groups => dispatch(setGroups(groups)))
       .catch(err => console.log('Yenileme hatası:', err));
   };
   useEffect(() => {
     const initialize = async () => {
       try {
         await createTable();
-        await createPersonTable(); // burada tabloyu oluşturuyoruz
+        await createPersonTable().then(() =>
+          getGroups().then(contacts => dispatch(setContacts(contacts))),
+        ); // burada tabloyu oluşturuyoruz
         refreshGroups(); // sonra grupları çekiyoruz
       } catch (err) {
         console.log('Hata:', err);
@@ -58,7 +63,7 @@ const Groups = () => {
       </Text>
 
       <FlatList
-        data={groupList}
+        data={groups}
         ListFooterComponent={
           showAdd && (
             <AddItemInput
