@@ -15,7 +15,13 @@ export default function RootNavigator() {
       }}>
       <Stack.Screen name={GROUPS} component={Groups} />
       <Stack.Screen name={CONTACTLIST} component={ContactList} />
-      <Stack.Screen name={CONTACTDETAIL} component={ContactDetail} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+        }}
+        name={CONTACTDETAIL}
+        component={ContactDetail}
+      />
       <Stack.Screen
         options={{
           headerShown: true,
