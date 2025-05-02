@@ -5,6 +5,7 @@ import {useEffect, useState} from 'react';
 import {createTable, getGroups} from '../../service/dataBase';
 import GroupItem from '../../components/groups/groupItem';
 import AddItemInput from '../../components/groups/addItemInput';
+import {createPersonTable} from '../../service/personDataBase';
 
 const Groups = () => {
   const [groupList, setGroupList] = useState([]);
@@ -17,9 +18,17 @@ const Groups = () => {
       .catch(err => console.log('Yenileme hatası:', err));
   };
   useEffect(() => {
-    createTable()
-      .then(refreshGroups)
-      .catch(err => console.log('Hata:', err));
+    const initialize = async () => {
+      try {
+        await createTable();
+        await createPersonTable(); // burada tabloyu oluşturuyoruz
+        refreshGroups(); // sonra grupları çekiyoruz
+      } catch (err) {
+        console.log('Hata:', err);
+      }
+    };
+
+    initialize();
   }, []);
 
   return (
