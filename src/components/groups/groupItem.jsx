@@ -45,50 +45,31 @@ const GroupItem = ({item, showEdit, onUpdate, closeShowEdit}) => {
       {showEdit && (
         <TouchableOpacity
           onPress={() => setTrash(!trash)}
-          style={{padding: 5, justifyContent: 'center', alignItems: 'center'}}>
+          style={styles.iconButton}>
           <CloseCircle size={24} color={Colors.RED} variant="Bold" />
         </TouchableOpacity>
       )}
-      <View style={{padding: 5}}>
+      <View style={styles.iconWrapper}>
         {item.title == 'Tümü' ? (
           <People size={32} color={Colors.BLUE} />
         ) : (
           <Profile2User size={28} color={Colors.BLUE} />
         )}
       </View>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingBottom: 5,
-          marginHorizontal: 5,
-          borderColor: Colors.GRAY,
-          borderBottomWidth: 0.5,
-          marginBottom: 5,
-        }}>
-        <View
-          style={{
-            justifyContent: 'center',
-            marginLeft: 10,
-            flex: 1,
-          }}>
+      <View style={styles.contentWrapper}>
+        <View style={styles.titleWrapper}>
           {showEdit ? (
-            <TextInput defaultValue={editText} onChangeText={setEditText} />
+            <TextInput
+              defaultValue={editText}
+              onChangeText={setEditText}
+              style={styles.textInput}
+            />
           ) : (
-            <Text style={{fontSize: 16, fontWeight: '500'}}>{item?.title}</Text>
+            <Text style={styles.titleText}>{item?.title}</Text>
           )}
         </View>
-        <View
-          style={{
-            justifyContent: 'center',
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <Text style={{fontSize: 16, fontWeight: 'bold', color: Colors.GRAY}}>
-            {persons?.length}
-          </Text>
+        <View style={styles.personCountWrapper}>
+          <Text style={styles.personCountText}>{persons?.length}</Text>
           <ArrowRight2 size={24} color={Colors.BLUE} />
         </View>
       </View>
@@ -99,7 +80,7 @@ const GroupItem = ({item, showEdit, onUpdate, closeShowEdit}) => {
             onUpdate();
             closeShowEdit();
           }}
-          style={{padding: 5, justifyContent: 'center', alignItems: 'center'}}>
+          style={styles.iconButton}>
           <Trash size={24} color={Colors.RED} variant="Bold" />
         </TouchableOpacity>
       ) : (
@@ -111,11 +92,7 @@ const GroupItem = ({item, showEdit, onUpdate, closeShowEdit}) => {
               onUpdate();
               closeShowEdit();
             }}
-            style={{
-              padding: 5,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+            style={styles.iconButton}>
             <TickCircle size={24} color={Colors.GREEN} variant="Bold" />
           </TouchableOpacity>
         )
@@ -132,6 +109,50 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 5,
     marginVertical: 2,
+  },
+  iconButton: {
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconWrapper: {
+    padding: 5,
+  },
+  contentWrapper: {
+    flex: 1,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingBottom: 5,
+    marginHorizontal: 5,
+    borderColor: Colors.GRAY,
+    borderBottomWidth: 0.5,
+    marginBottom: 5,
+  },
+  titleWrapper: {
+    justifyContent: 'center',
+    marginLeft: 10,
+    flex: 1,
+  },
+  textInput: {
+    fontSize: 16,
+    fontWeight: '500',
+    padding: 0,
+  },
+  titleText: {
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  personCountWrapper: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  personCountText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: Colors.GRAY,
+    marginRight: 5,
   },
 });
 

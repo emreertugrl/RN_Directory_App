@@ -1,4 +1,4 @@
-import {View, Text, SafeAreaView, FlatList} from 'react-native';
+import {View, Text, SafeAreaView, FlatList, StyleSheet} from 'react-native';
 import dScreen from '../../styles/defaultScreenStyle';
 import {Button} from '@ui-kitten/components';
 import {Add, ArrowLeft2, UserCirlceAdd} from 'iconsax-react-nativejs';
@@ -24,11 +24,10 @@ const ContactList = ({route, navigation}) => {
 
   return (
     <SafeAreaView style={dScreen.container}>
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+      <View style={styles.header}>
         <Button
           accessoryLeft={<ArrowLeft2 color={Colors.BLUE} />}
           onPress={() => navigation.goBack()}
-          style={{}}
           appearance="ghost"
           size="medium">
           {backScreen}
@@ -40,27 +39,16 @@ const ContactList = ({route, navigation}) => {
           <Add size={30} />
         </Button>
       </View>
-      <Text style={{fontSize: 35, fontWeight: 'bold', marginVertical: 10}}>
-        {item.title}
-      </Text>
+      <Text style={styles.title}>{item.title}</Text>
       <FlatList
         contentContainerStyle={{flex: contacts.length < 1 && 1}}
         data={contacts}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => <ContactItem item={item} />}
         ListEmptyComponent={
-          <View
-            style={{
-              width: '100%',
-              height: '100%',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: 25,
-            }}>
+          <View style={styles.emptyContainer}>
             <UserCirlceAdd size={100} />
-            <Text style={{fontSize: 30, fontWeight: '500'}}>
-              Henüz kayıtlı kişi yok.
-            </Text>
+            <Text style={styles.emptyText}>Henüz kayıtlı kişi yok.</Text>
             <Button
               onPress={() =>
                 navigation.navigate(ADDCONTACT, {group_id: item.id})
@@ -75,5 +63,27 @@ const ContactList = ({route, navigation}) => {
     </SafeAreaView>
   );
 };
+const styles = StyleSheet.create({
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  title: {
+    fontSize: 35,
+    fontWeight: 'bold',
+    marginVertical: 10,
+  },
+  emptyContainer: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 25,
+  },
+  emptyText: {
+    fontSize: 30,
+    fontWeight: '500',
+  },
+});
 
 export default ContactList;
