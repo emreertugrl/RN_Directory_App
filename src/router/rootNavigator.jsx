@@ -16,7 +16,13 @@ export default function RootNavigator() {
       <Stack.Screen name={GROUPS} component={Groups} />
       <Stack.Screen name={CONTACTLIST} component={ContactList} />
       <Stack.Screen name={CONTACTDETAIL} component={ContactDetail} />
-      <Stack.Screen name={ADDCONTACT} component={AddContact} />
+      <Stack.Screen
+        options={{
+          headerShown: true,
+        }}
+        name={ADDCONTACT}
+        component={AddContact}
+      />
     </Stack.Navigator>
   );
 }
