@@ -1,0 +1,19 @@
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import ContactList from '../screens/contacts';
+import {ADDCONTACT, CONTACTDETAIL, CONTACTLIST, GROUPS} from '../utils/routes';
+import ContactDetail from '../screens/contacts/contactDetail';
+import AddContact from '../screens/contacts/addContact';
+import Groups from '../screens/groups';
+
+const Stack = createNativeStackNavigator();
+
+export default function RootNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name={GROUPS} component={Groups} />
+      <Stack.Screen name={CONTACTLIST} component={ContactList} />
+      <Stack.Screen name={CONTACTDETAIL} component={ContactDetail} />
+      <Stack.Screen name={ADDCONTACT} component={AddContact} />
+    </Stack.Navigator>
+  );
+}
