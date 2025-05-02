@@ -9,7 +9,10 @@ const Stack = createNativeStackNavigator();
 
 export default function RootNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
       <Stack.Screen name={GROUPS} component={Groups} />
       <Stack.Screen name={CONTACTLIST} component={ContactList} />
       <Stack.Screen name={CONTACTDETAIL} component={ContactDetail} />
