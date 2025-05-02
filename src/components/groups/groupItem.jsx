@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Pressable,
 } from 'react-native';
 import Colors from '../../theme/colors';
 import {
@@ -14,14 +15,27 @@ import {
   TickCircle,
   Trash,
 } from 'iconsax-react-nativejs';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {deleteGroup, updateGroup} from '../../service/dataBase';
+import {useNavigation} from '@react-navigation/native';
+import {CONTACTLIST} from '../../utils/routes';
+import {getPersons} from '../../service/personDataBase';
 
 const GroupItem = ({item, showEdit, onUpdate, closeShowEdit}) => {
   const [trash, setTrash] = useState(false);
   const [editText, setEditText] = useState(item.title);
+  const [persons, setPersons] = useState(0);
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    getPersons(item.id).then(res => setPersons(res));
+  }, []);
+
   return (
-    <View style={styles.container}>
+    <Pressable
+      onPress={() => navigation.navigate(CONTACTLIST, {item: item})}
+      style={styles.container}>
       {showEdit && (
         <TouchableOpacity
           onPress={() => setTrash(!trash)}
@@ -67,7 +81,7 @@ const GroupItem = ({item, showEdit, onUpdate, closeShowEdit}) => {
             alignItems: 'center',
           }}>
           <Text style={{fontSize: 16, fontWeight: 'bold', color: Colors.GRAY}}>
-            3
+            {persons?.length}
           </Text>
           <ArrowRight2 size={24} color={Colors.BLUE} />
         </View>
@@ -100,7 +114,7 @@ const GroupItem = ({item, showEdit, onUpdate, closeShowEdit}) => {
           </TouchableOpacity>
         )
       )}
-    </View>
+    </Pressable>
   );
 };
 
