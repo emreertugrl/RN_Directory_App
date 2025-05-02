@@ -19,7 +19,11 @@ const AddItemInput = ({onUpdate, closeShowAdd}) => {
           style={{
             justifyContent: 'center',
           }}>
-          <TextInput placeholder="Liste adını giriniz" onChangeText={setText} />
+          <TextInput
+            value={text}
+            placeholder="Liste adını giriniz"
+            onChangeText={setText}
+          />
         </View>
       </View>
       {text.length > 3 && (
@@ -46,6 +50,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 5,
     marginVertical: 2,
+    paddingHorizontal: 10,
   },
 });
 

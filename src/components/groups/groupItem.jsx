@@ -55,7 +55,7 @@ const GroupItem = ({item, showEdit, onUpdate, closeShowEdit}) => {
             flex: 1,
           }}>
           {showEdit ? (
-            <TextInput defaultValue={item?.title} onChangeText={setEditText} />
+            <TextInput defaultValue={editText} onChangeText={setEditText} />
           ) : (
             <Text style={{fontSize: 16, fontWeight: '500'}}>{item?.title}</Text>
           )}
@@ -74,8 +74,8 @@ const GroupItem = ({item, showEdit, onUpdate, closeShowEdit}) => {
       </View>
       {showEdit && trash ? (
         <TouchableOpacity
-          onPress={() => {
-            deleteGroup(item.id);
+          onPress={async () => {
+            await deleteGroup(item.id);
             onUpdate();
             closeShowEdit();
           }}
@@ -86,8 +86,8 @@ const GroupItem = ({item, showEdit, onUpdate, closeShowEdit}) => {
         showEdit &&
         editText && (
           <TouchableOpacity
-            onPress={() => {
-              updateGroup(item.id, editText);
+            onPress={async () => {
+              await updateGroup(item.id, editText);
               onUpdate();
               closeShowEdit();
             }}

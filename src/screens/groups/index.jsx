@@ -19,9 +19,6 @@ const Groups = () => {
   useEffect(() => {
     createTable()
       .then(refreshGroups)
-      .then(groups => {
-        setGroupList(groups); // verileri state'e aktar
-      })
       .catch(err => console.log('Hata:', err));
   }, []);
 
@@ -29,7 +26,10 @@ const Groups = () => {
     <SafeAreaView style={defaultScreenStyle.container}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <Button
-          onPress={() => setShowEdit(!showEdit)}
+          onPress={() => {
+            setShowEdit(!showEdit);
+            setShowAdd(false);
+          }}
           appearance="ghost"
           size="medium">
           {showEdit ? 'Tamam' : 'Düzenle'}
